@@ -12,19 +12,19 @@ jobs:
   quarto-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: cderv/install-quarto-action@main
+      - uses: cderv/install-quarto-action@v1
       - run: |
           quarto --version
   quarto-windows:
     runs-on: windows-latest
     steps:
-      - uses: cderv/install-quarto-action@main
+      - uses: cderv/install-quarto-action@v1
       - run: |
           quarto --version
   quarto-macos:
     runs-on: macos-latest
     steps:
-      - uses: cderv/install-quarto-action@main
+      - uses: cderv/install-quarto-action@v1
       - run: |
           quarto --version
 ```
