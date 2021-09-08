@@ -23,8 +23,9 @@ runs:
       shell: bash
     - name: Download Quarto release
       env: 
-        GITHUB_PAT: ${{ github.token }}
+        GITHUB_TOKEN: ${{ github.token }}
       run: |
-        echo $GITHUB_PAT
-        echo $BUNDLE_EXT
+        # download the latest release
+        gh release download --repo quarto-dev/quarto-cli --pattern ${{ format('*.{0}', env.BUNDLE_EXT) }}
+        ls
       shell: bash
