@@ -28,11 +28,10 @@ runs:
       run: |
         # download the latest release
         gh release download --repo quarto-dev/quarto-cli --pattern ${{ format('*.{0}', env.BUNDLE_EXT) }}
-        echo "::set-output name=installer::$(${{ format('quarto*.{0}', env.BUNDLE_EXT) }})"
+        echo "::set-output name=installer::$(ls quarto*.$BUNDLE_EXT))"
       shell: bash
     - name: Install Quarto
       run: |
         installer=${{ steps.download-quarto.outputs.installer }}
-        echo "This is"$installer
-        [ ${{ runner.os }} == "Linux" ] && sudo apt install $installer
+        [ ${{ runner.os }} == "Linux" ] && sudo apt install ./$installer
       shell: bash
