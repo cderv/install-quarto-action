@@ -22,10 +22,15 @@ runs:
         esac
       shell: bash
     - name: Download Quarto release
+      id: download-quarto 
       env: 
         GITHUB_TOKEN: ${{ github.token }}
       run: |
         # download the latest release
         gh release download --repo quarto-dev/quarto-cli --pattern ${{ format('*.{0}', env.BUNDLE_EXT) }}
-        ls
+        echo "::set-output name=installer::$(${{ format('quarto*.{0}', env.BUNDLE_EXT) }})"
       shell: bash
+    - name: Install Quarto
+      run: |
+        installer=${{ steps.download-quarto.outputs.installer }}
+        echo $installer
