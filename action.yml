@@ -33,10 +33,21 @@ runs:
     - name: Install Quarto
       run: |
         installer=${{ steps.download-quarto.outputs.installer }}
-        INSTALLED=false
-        [ ${{ runner.os }} == "Linux" ] && sudo apt install ./$installer && INSTALLED=true
-        [ ${{ runner.os }} == "macOS" ] && sudo installer -pkg ./$installer -target '/' && INSTALLED=true
-        # [ ${{ runner.os }} == "Windows" ] && powershell -Command "msiexec /quiet /passive /i " $installer && INSTALLED=true
-        [ ${{ runner.os }} == "Windows" ] && INSTALLED=true
-        $INSTALLED && echo 'Quarto is installed'
+        case $RUNNER_OS in 
+          "Linux")
+              sudo apt install ./$installer
+              ;;
+           "macOS")
+              sudo installer -pkg ./$installer -target
+              ;;
+           "Windows")
+              # can't install msi for now so use scoop
+              powershell -File ${{ github.action_path }}/install-quarto-windows.ps1
+              ;;
+            *)
+              echo "$RUNNER_OS not supported"
+              exit 1
+              ;;
+        esac
+        rm $installer
       shell: bash
