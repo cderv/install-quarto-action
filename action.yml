@@ -5,6 +5,7 @@ runs:
   steps: 
     - name: Select binary for OS
       run: |
+        # Select correct bundle for OS type
         case $RUNNER_OS in 
           "Linux")
               echo "BUNDLE_EXT=deb" >> $GITHUB_ENV
@@ -32,6 +33,7 @@ runs:
       shell: bash
     - name: Install Quarto
       run: |
+        # Install quarto
         installer=${{ steps.download-quarto.outputs.installer }}
         case $RUNNER_OS in 
           "Linux")
