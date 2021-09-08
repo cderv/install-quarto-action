@@ -33,5 +33,5 @@ runs:
     - name: Install Quarto
       run: |
         installer=${{ steps.download-quarto.outputs.installer }}
-        echo $installer
+        [ ${{ runner.os }} == "Linux" ] && sudo apt install $installer
       shell: bash
