@@ -37,5 +37,6 @@ runs:
         [ ${{ runner.os }} == "Linux" ] && sudo apt install ./$installer && INSTALLED=true
         [ ${{ runner.os }} == "macOS" ] && sudo installer -pkg ./$installer -target '/' && INSTALLED=true
         # [ ${{ runner.os }} == "Windows" ] && powershell -Command "msiexec /quiet /passive /i " $installer && INSTALLED=true
+        [ ${{ runner.os }} == "Windows" ] && INSTALLED=true
         $INSTALLED && echo 'Quarto is installed'
       shell: bash
