@@ -34,3 +34,4 @@ runs:
       run: |
         installer=${{ steps.download-quarto.outputs.installer }}
         echo $installer
+      shell: bash
