@@ -33,5 +33,8 @@ runs:
     - name: Install Quarto
       run: |
         installer=${{ steps.download-quarto.outputs.installer }}
-        [ ${{ runner.os }} == "Linux" ] && sudo apt install ./$installer
+        INSTALLED=false
+        [ ${{ runner.os }} == "Linux" ] && sudo apt install ./$installer && INSTALLED=true
+        [ ${{ runner.os }} == "macOS" ] && sudo installer -pkg ./$installer -target '/' && INSTALLED=true
+        [ ${{ runner.os }} == "Windows" ] && msiexec ./$installer /passive /quiet && INSTALLED=true
       shell: bash
