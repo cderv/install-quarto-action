@@ -1,0 +1,30 @@
+name: 'Install Quarto'
+description: 'This actions will install Quarto binary from https://github.com/quarto-dev/quarto-cli/'
+runs:
+  using: "composite"
+  steps: 
+    - name: Select binary for OS
+      run: |
+        case $RUNNER_OS in 
+          "Linux")
+              echo "BUNDLE_EXT=deb" >> $GITHUB_ENV
+              ;;
+           "macOS")
+              echo "BUNDLE_EXT=pkg" >> $GITHUB_ENV
+              ;;
+           "Windows")
+              echo "BUNDLE_EXT=msi" >> $GITHUB_ENV
+              ;;
+            *)
+              echo "$RUNNER_OS not supported"
+              exit 1
+              ;;
+        esac
+      shell: bash
+    - name: Download Quarto release
+      env: 
+        GITHUB_PAT: ${{ github.token }}
+      run: |
+        echo $GITHUB_PAT
+        echo $BUNDLE_EXT
+      shell: bash
