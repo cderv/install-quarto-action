@@ -28,13 +28,16 @@ runs:
         GITHUB_TOKEN: ${{ github.token }}
       run: |
         # download the latest release
-        gh release download --repo quarto-dev/quarto-cli --pattern ${{ format('*.{0}', env.BUNDLE_EXT) }}
-        echo "::set-output name=installer::$(ls quarto*.$BUNDLE_EXT)"
+        if [ ${{ runner.os }} != "Windows" ]; then
+         # On Windows scoop will be used so no need to download the release
+         gh release download --repo quarto-dev/quarto-cli --pattern ${{ format('*.{0}', env.BUNDLE_EXT) }}
+         echo "::set-output name=installer::$(ls quarto*.$BUNDLE_EXT)"
+        fi
       shell: bash
     - name: Install Quarto
       run: |
         # Install quarto
-        installer=${{ steps.download-quarto.outputs.installer }}
+        [ ${{ runner.os }} != "Windows" ] && installer=${{ steps.download-quarto.outputs.installer }}
         case $RUNNER_OS in 
           "Linux")
               sudo apt install ./$installer
@@ -51,5 +54,6 @@ runs:
               exit 1
               ;;
         esac
-        rm $installer
+        [ ${{ runner.os }} != "Windows" ] && rm $installer
+        echo "Quarto Installed !"
       shell: bash
