@@ -1,6 +1,6 @@
 # install-quarto-action
 
-> This work now leaves in https://github.com/quarto-dev/quarto-actions/tree/main/install-quarto
+> This work now lives in https://github.com/quarto-dev/quarto-actions/tree/main/install-quarto
 
 Install Quarto (https://quarto.org/) using GitHub Actions. This action can be used to install Quarto on all runner OS and `quarto` will be available from PATH.
 
