@@ -43,7 +43,7 @@ runs:
               sudo apt install ./$installer
               ;;
            "macOS")
-              sudo installer -pkg ./$installer -target
+              sudo installer -pkg ./$installer -target '/'
               ;;
            "Windows")
               # can't install msi for now so use scoop
