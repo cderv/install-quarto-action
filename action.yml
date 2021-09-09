@@ -1,9 +1,10 @@
 name: 'Install Quarto'
+author: 'Christophe Dervieux'
 description: 'This actions will install Quarto binary from https://github.com/quarto-dev/quarto-cli/'
 runs:
-  using: "composite"
+  using: 'composite'
   steps: 
-    - name: Select binary for OS
+    - name: 'Select binary for OS'
       run: |
         # Select correct bundle for OS type
         case $RUNNER_OS in 
@@ -22,7 +23,7 @@ runs:
               ;;
         esac
       shell: bash
-    - name: Download Quarto release
+    - name: 'Download Quarto release'
       id: download-quarto 
       env: 
         GITHUB_TOKEN: ${{ github.token }}
@@ -34,7 +35,7 @@ runs:
          echo "::set-output name=installer::$(ls quarto*.$BUNDLE_EXT)"
         fi
       shell: bash
-    - name: Install Quarto
+    - name: 'Install Quarto'
       run: |
         # Install quarto
         [ ${{ runner.os }} != "Windows" ] && installer=${{ steps.download-quarto.outputs.installer }}
